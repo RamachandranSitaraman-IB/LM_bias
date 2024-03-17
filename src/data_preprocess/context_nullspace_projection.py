@@ -66,9 +66,9 @@ from torch.nn import functional as F
 def load_data():
     # load clipped sentences
     sample = 5000
-    male_sent = np.loadtxt("../../data/male_sentences_clip.txt", dtype=str, delimiter="\n")
-    female_sent = np.loadtxt("../../data/female_sentences_clip.txt", dtype=str, delimiter="\n")
-    neut_sent = np.loadtxt("../../data/neut_sentences.txt", dtype=str, delimiter="\n")
+    male_sent = np.loadtxt("../../data/male_sentences_clip.txt", dtype=str)
+    female_sent = np.loadtxt("../../data/female_sentences_clip.txt", dtype=str)
+    neut_sent = np.loadtxt("../../data/neut_sentences.txt", dtype=str)
     print("The number of the dataset (male, female, neut): ", male_sent.shape, female_sent.shape, neut_sent.shape)
 
     male_sent = np.random.choice(male_sent, sample, replace=False)
