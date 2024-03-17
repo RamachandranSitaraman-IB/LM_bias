@@ -65,11 +65,11 @@ from torch.nn import functional as F
 def load_data():
     sample = 5000
     with open("../../data/male_sentences_clip.txt", "r", encoding="utf-8") as file:
-        male_sent = file.read().splitlines()
+        male_sent = np.array(file.read().splitlines())
     with open("../../data/female_sentences_clip.txt", "r", encoding="utf-8") as file:
-        female_sent = file.read().splitlines()
+        female_sent = np.array(file.read().splitlines())
     with open("../../data/neut_sentences.txt", "r", encoding="utf-8") as file:
-        neut_sent = file.read().splitlines()
+        neut_sent = np.array(file.read().splitlines())
 
     print("The number of the dataset (male, female, neut): ", male_sent.shape, female_sent.shape, neut_sent.shape)
 
