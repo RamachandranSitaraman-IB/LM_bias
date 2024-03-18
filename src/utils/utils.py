@@ -35,7 +35,7 @@ def heatmap(activations, layer_name):
     print(activations.keys())
     if isinstance(activations[layer_name], torch.Tensor):
         # Detach and convert to numpy if it's a tensor
-        activations[layer_name] = activations[layer_name].detach().cpu().numpy()
+        activations[layer_name] = list(activations[layer_name].detach().cpu().numpy())
     elif isinstance(activations[layer_name], list):
         # Directly convert to numpy array if it's a list
         activations[layer_name] = np.array(activations[layer_name])
