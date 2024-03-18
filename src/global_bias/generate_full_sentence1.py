@@ -291,7 +291,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
                     for ii in range(batch_size):
                         gen_sent = tokenizer.decode(input_ids.tolist()[ii], clean_up_tokenization_spaces=True)
                         print(ii, gen_sent)
-                        utils.heatmaptext(activations, layer_name, A[a], prompt_text, input_ids)
+                        utils.heatmaptext(activations, layer_name, A[a], prompt_text, input_ids, model_name)
                         if '\n' in gen_sent:
                             gen_idx = gen_sent.index('\n')
                         else:
