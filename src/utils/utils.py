@@ -6,7 +6,7 @@ import torch
 
 def get_activation(name):
     def hook(model, input, output):
-        activations[name] = torch.tensor(output).detach()
+        activations[name] = output #.detach()
     return hook, activations
 
 
