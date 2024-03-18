@@ -61,6 +61,13 @@ def heatmaptext(activations, layer_name, ratio, prompt_text):
     token_ids = tokenizer.convert_tokens_to_ids(tokens)
     token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
+    print(activations.keys())
+    if isinstance(activations[layer_name], torch.Tensor):
+        # Detach and convert to numpy if it's a tensor
+        activations[layer_name] = list(activations[layer_name].detach().cpu().numpy())
+    elif isinstance(activations[layer_name], list):
+        # Directly convert to numpy array if it's a list
+        activations[layer_name] = activations[layer_name][0]
     # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
     activation_tensor = activations[layer_name].squeeze(0)  # Assuming batch_size=1 for simplicity
 
