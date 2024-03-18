@@ -7,6 +7,7 @@ import torch
 
 def get_activation(name):
     def hook(model, input, output):
+        print(output.dtype)
         activations[name] = np.array(output.detach()) #.detach()
     return hook, activations
 
