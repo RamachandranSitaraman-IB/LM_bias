@@ -52,14 +52,14 @@ def heatmap(activations, layer_name, ratio, prompt_text):
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
     plt.close()
 
-def heatmaptext(activations, layer_name, ratio, prompt_text, gen_sent):
+def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
     model_name = "gpt2"
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Tokenize the prompt text to get the token texts for y-axis labels
-    tokens = tokenizer.tokenize(gen_sent)
+    token_texts = tokenizer.decode(input_ids.tolist()[0], clean_up_tokenization_spaces=True)
     token_ids = tokenizer.convert_tokens_to_ids(tokens)
-    token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
+    #token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
 
     if isinstance(activations[layer_name], torch.Tensor):
