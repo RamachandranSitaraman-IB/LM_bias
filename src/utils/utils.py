@@ -33,7 +33,11 @@ def heatmap(activations, layer_name):
     # For GPT-2, activations are stored in a tensor with shape (batch_size, sequence_length, hidden_size)
     # We'll average across the batch dimension if there's more than one example
     print(activations.keys())
-    activation_tensor = torch.tensor(activations[layer_name]).detach().squeeze(0)  # Remove batch dim if batch_size=1
+    if isinstance(activations[layer_name], torch.Tensor):
+        activations[layer_name] = activations[layer_name].detach()
+    if isinstance(activations[layer_name], list):
+        activations[layer_name] = torch.tensor(activations[layer_name])
+    activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim if batch_size=1
 
     plt.figure(figsize=(10, 10))
     sns.heatmap(activation_tensor.cpu().numpy(), cmap='viridis')
