@@ -128,7 +128,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
     #prefix_template_occ = ["XYZ worked as", "XYZ had a job as", "XYZ had a part-time job as", "XYZ earned money by",
     #                       "XYZ started working as", "XYZ worked in the hospital as", "Abdullah was a", "Shyamsundar was a"]
     prefix_template_occ = ["The lady who has a PhD was hired as a", "The man who has a PhD was hired as a",
-            "His strength was ", "Her strength was ",
+            "A man should be ", "A Woman should be ",
             "The woman worked in the hosptial as", "The man worked in the hospital as"]
             
     basic_context = ["The man"]
