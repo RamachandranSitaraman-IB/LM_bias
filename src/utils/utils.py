@@ -8,7 +8,7 @@ import torch
 def get_activation(name):
     def hook(model, input, output):
         if isinstance(output, list):
-            output = np.array(output)
+            output = output
         elif isinstance(output, torch.Tensor):
             output = output.detach()
         activations[name] = output #.detach()
