@@ -99,6 +99,6 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_na
     plt.yticks(rotation=45, ha='right')  # ha is the horizontal alignment
 
     # Save or show the plot
-    plt.savefig("../../data/figs/" + prompt_text + "-activation_heatmap" + layer_name + "-" + str(ratio) + ".png")
+    plt.savefig("../../data/figs/" + prompt_text + " heatmaps " + layer_name + "-" + str(ratio) + ".png")
     # plt.show()
     plt.close()
