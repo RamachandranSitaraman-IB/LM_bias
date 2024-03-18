@@ -50,3 +50,31 @@ def heatmap(activations, layer_name, ratio, prompt_text):
     plt.ylabel("Tokens in the sequence")
     #plt.show()
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
+
+
+def heatmaptext(activations, layer_name, ratio, prompt_text):
+    model_name = "gpt2"
+    tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+
+    # Tokenize the prompt text to get the token texts for y-axis labels
+    tokens = tokenizer.tokenize(prompt_text)
+    token_ids = tokenizer.convert_tokens_to_ids(tokens)
+    token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
+
+    # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
+    activation_tensor = activations[layer_name].squeeze(0)  # Assuming batch_size=1 for simplicity
+
+    # Prepare the figure and plot the heatmap
+    plt.figure(figsize=(10, len(token_texts) / 2))  # Adjust figure size as needed
+    ax = sns.heatmap(activation_tensor.cpu().detach().numpy(), cmap='viridis', yticklabels=token_texts)
+
+    plt.title(f"Heatmap of activations in layer {layer_name}")
+    plt.xlabel("Neurons in the layer")
+    plt.ylabel("Tokens in the sequence")
+
+    # Rotate y-axis labels for readability
+    plt.yticks(rotation=45, ha='right')  # ha is the horizontal alignment
+
+    # Save or show the plot
+    plt.savefig("../../data/figs/" + prompt_text + "-activation_heatmap" + layer_name + "-" + str(ratio) + ".png")
+    # plt.show()
