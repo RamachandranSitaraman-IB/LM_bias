@@ -70,7 +70,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, gen_sent):
         activations[layer_name] = activations[layer_name][0]
     # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
     activation_tensor = activations[layer_name].squeeze(0)  # Assuming batch_size=1 for simplicity
-    print(activations.keys(), len(token_texts), activations[layer_name].shape)
+    print(activations.keys(), len(token_texts), len(tokens), activations[layer_name].shape)
 
     # Prepare the figure and plot the heatmap
     plt.figure(figsize=(10, 10))  # Adjust figure size as needed
