@@ -1,12 +1,13 @@
 from transformers import GPT2Model, GPT2Tokenizer
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 activations = {}
 import torch
 
 def get_activation(name):
     def hook(model, input, output):
-        activations[name] = output #.detach()
+        activations[name] = np.array(output) #.detach()
     return hook, activations
 
 
