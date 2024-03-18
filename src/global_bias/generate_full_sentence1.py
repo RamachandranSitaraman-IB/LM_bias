@@ -167,7 +167,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f):
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
                         print("Prompt:", prompt_text)
 
-                        utils.heatmaptext(activations, layer_name, A[a], prompt_text)
+
 
                         # out is used to calculate ppl
                         if out is None:     # (batch, pos, dim)
@@ -291,6 +291,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f):
                     for ii in range(batch_size):
                         gen_sent = tokenizer.decode(input_ids.tolist()[ii], clean_up_tokenization_spaces=True)
                         print(ii, gen_sent)
+                        utils.heatmaptext(activations, layer_name, A[a], prompt_text, gen_sent)
                         if '\n' in gen_sent:
                             gen_idx = gen_sent.index('\n')
                         else:
