@@ -17,9 +17,11 @@ def get_activation(name):
 
 
 def register_hook(model, layer, model_name):
-
+    if model_name == 'openai-gpt':
+        tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
+    else:
     #model = GPT2Model.from_pretrained(model_name)
-    tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+        tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Assuming we're interested in the last hidden layer
     layer_name = "transformer.h.["+str(layer)+"]"  # The last layer in GPT-2's transformer block
@@ -28,7 +30,12 @@ def register_hook(model, layer, model_name):
     return activations, layer_name
 
 
-def heatmap(activations, layer_name, ratio, prompt_text):
+def heatmap(activations, layer_name, ratio, prompt_text, model_name):
+    if model_name == 'openai-gpt':
+        tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
+    else:
+    #model = GPT2Model.from_pretrained(model_name)
+        tokenizer = GPT2Tokenizer.from_pretrained(model_name)
     # Convert the activations to a format suitable for Seaborn's heatmap function
     # For GPT-2, activations are stored in a tensor with shape (batch_size, sequence_length, hidden_size)
     # We'll average across the batch dimension if there's more than one example
@@ -52,9 +59,15 @@ def heatmap(activations, layer_name, ratio, prompt_text):
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
     plt.close()
 
-def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
-    model_name = "gpt2"
-    tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_name):
+
+    if model_name == 'openai-gpt':
+        tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
+    else:
+    #model = GPT2Model.from_pretrained(model_name)
+        tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+    # model_name = "gpt2"
+    # tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Tokenize the prompt text to get the token texts for y-axis labels
     #token_texts = [tokenizer.decode([token_id], clean_up_tokenization_spaces=True) for token_id in input_ids.tolist()[0] ]
