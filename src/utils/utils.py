@@ -2,10 +2,11 @@ from transformers import GPT2Model, GPT2Tokenizer
 import matplotlib.pyplot as plt
 import seaborn as sns
 activations = {}
+import torch
 
 def get_activation(name):
     def hook(model, input, output):
-        activations[name] = output.detach()
+        activations[name] = torch.tensor(output).detach()
     return hook, activations
 
 
@@ -17,7 +18,7 @@ def register_hook(model, layer):
 
     # Assuming we're interested in the last hidden layer
     layer_name = "transformer.h.["+str(layer)+"]"  # The last layer in GPT-2's transformer block
-    hook, activations= get_activation((layer_name))
+    hook, activations = get_activation((layer_name))
     model.transformer.h[layer].register_forward_hook(hook)
     return activations, layer_name
 
