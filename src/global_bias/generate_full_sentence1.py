@@ -9,6 +9,8 @@ import random
 import os
 import sys
 import argparse
+import sys
+sys.path.append("../../")
 from src.utils import utils
 
 import transformers
