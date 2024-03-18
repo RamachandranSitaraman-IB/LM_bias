@@ -50,7 +50,7 @@ def heatmap(activations, layer_name, ratio, prompt_text):
     plt.ylabel("Tokens in the sequence")
     #plt.show()
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
-
+    plt.close()
 
 def heatmaptext(activations, layer_name, ratio, prompt_text):
     model_name = "gpt2"
@@ -85,3 +85,4 @@ def heatmaptext(activations, layer_name, ratio, prompt_text):
     # Save or show the plot
     plt.savefig("../../data/figs/" + prompt_text + "-activation_heatmap" + layer_name + "-" + str(ratio) + ".png")
     # plt.show()
+    plt.close()
