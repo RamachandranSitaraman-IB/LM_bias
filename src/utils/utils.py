@@ -23,7 +23,7 @@ def heatmap(model, layer):
     # Convert the activations to a format suitable for Seaborn's heatmap function
     # For GPT-2, activations are stored in a tensor with shape (batch_size, sequence_length, hidden_size)
     # We'll average across the batch dimension if there's more than one example
-    print(activations.keys)
+    print(activations.keys())
     activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim if batch_size=1
 
     plt.figure(figsize=(10, 10))
