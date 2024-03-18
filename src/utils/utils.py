@@ -34,7 +34,7 @@ def heatmap(activations, layer_name):
     # We'll average across the batch dimension if there's more than one example
     print(activations.keys())
     if isinstance(activations[layer_name], torch.Tensor):
-        activations[layer_name] = activations[layer_name].detach()
+        activations[layer_name] = activations[layer_name].detach().numpy()
     if isinstance(activations[layer_name], list) and not isinstance(activations[layer_name], torch.Tensor):
         activations[layer_name] = activations[layer_name].detach().numpy()
     activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim if batch_size=1
