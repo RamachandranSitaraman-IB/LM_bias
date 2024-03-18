@@ -34,10 +34,14 @@ def heatmap(activations, layer_name):
     # We'll average across the batch dimension if there's more than one example
     print(activations.keys())
     if isinstance(activations[layer_name], torch.Tensor):
-        activations[layer_name] = activations[layer_name].detach().numpy()
-    if isinstance(activations[layer_name], list):
+        # Detach and convert to numpy if it's a tensor
+        activations[layer_name] = activations[layer_name].detach().cpu().numpy()
+    elif isinstance(activations[layer_name], list):
+        # Directly convert to numpy array if it's a list
         activations[layer_name] = np.array(activations[layer_name])
-    activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim if batch_size=1
+
+    # Now, activations[layer_name] should be a numpy array and can be manipulated as such
+    activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim
 
     plt.figure(figsize=(10, 10))
     sns.heatmap(activation_tensor.cpu().numpy(), cmap='viridis')
