@@ -166,7 +166,8 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f):
                         activations, layer_name = utils.register_hook(model, -1)
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
                         print("Prompt:", prompt_text)
-                        utils.heatmap(activations, layer_name)
+                        if a == 0 or a== len(A) -1:
+                            utils.heatmap(activations, layer_name)
 
                         # out is used to calculate ppl
                         if out is None:     # (batch, pos, dim)
