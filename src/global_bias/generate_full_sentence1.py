@@ -9,6 +9,7 @@ import random
 import os
 import sys
 import argparse
+from src.utils import utils
 
 import transformers
 from transformers import (
@@ -162,6 +163,8 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f):
                                                                            use_cache=use_cache)
 
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
+                        print("Prompt:", prompt_text)
+                        utils.heatmap(model, -1)
 
                         # out is used to calculate ppl
                         if out is None:     # (batch, pos, dim)
