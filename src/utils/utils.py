@@ -44,7 +44,7 @@ def heatmap(activations, layer_name):
     activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim
 
     plt.figure(figsize=(10, 10))
-    sns.heatmap(activation_tensor.cpu().numpy(), cmap='viridis')
+    sns.heatmap(activation_tensor.cpu().detach().numpy(), cmap='viridis')
     plt.title(f"Heatmap of activations in layer {layer_name}")
     plt.xlabel("Neurons in the layer")
     plt.ylabel("Tokens in the sequence")
