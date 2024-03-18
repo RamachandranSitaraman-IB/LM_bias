@@ -1,25 +1,28 @@
 from transformers import GPT2Model, GPT2Tokenizer
+import matplotlib.pyplot as plt
+import seaborn as sns
 activations = {}
 
 def get_activation(name):
     def hook(model, input, output):
         activations[name] = output.detach()
-    return hook
+    return hook, activations
 
 
 
-def heatmap(model, layer):
+def register_hook(model, layer):
     model_name = "gpt2"
     #model = GPT2Model.from_pretrained(model_name)
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Assuming we're interested in the last hidden layer
-    layer_name = "transformer.h.[-1]"  # The last layer in GPT-2's transformer block
-    model.transformer.h[layer].register_forward_hook(get_activation(layer_name))
+    layer_name = "transformer.h.["+str(layer)+"]"  # The last layer in GPT-2's transformer block
+    hook, activations= get_activation((layer_name))
+    model.transformer.h[layer].register_forward_hook(hook)
+    return activations, layer_name
 
-    import matplotlib.pyplot as plt
-    import seaborn as sns
 
+def heatmap(activations, layer_name):
     # Convert the activations to a format suitable for Seaborn's heatmap function
     # For GPT-2, activations are stored in a tensor with shape (batch_size, sequence_length, hidden_size)
     # We'll average across the batch dimension if there's more than one example

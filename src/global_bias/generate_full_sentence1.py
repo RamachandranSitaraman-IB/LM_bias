@@ -163,10 +163,10 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f):
                     while cur_len < max_len:
                         model_inputs = model.prepare_inputs_for_generation(input_ids, past=past, attention_mask=attention_mask,
                                                                            use_cache=use_cache)
-
+                        activations, layer_name = utils.register_hook(model, -1)
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
                         print("Prompt:", prompt_text)
-                        utils.heatmap(model, -1)
+                        utils.heatmap(activations, layer_name)
 
                         # out is used to calculate ppl
                         if out is None:     # (batch, pos, dim)
