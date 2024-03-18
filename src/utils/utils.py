@@ -57,7 +57,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Tokenize the prompt text to get the token texts for y-axis labels
-    token_texts = [tokenizer.decode([token_id]) for token_id in input_ids.tolist()[0] ]
+    token_texts = [tokenizer.decode([token_id], clean_up_tokenization_spaces=True) for token_id in input_ids.tolist()[0] ]
     #token_ids = tokenizer.convert_tokens_to_ids(tokens)
     #token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
