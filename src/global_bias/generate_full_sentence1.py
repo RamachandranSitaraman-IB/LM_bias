@@ -112,7 +112,7 @@ top_p = 0.9
 bias_thre = (0.15, -0.1)
 
 
-def generate_sentences(tokenizer, model, embedding, P, device, method, f):
+def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_name):
     gender_direction = np.load("../../data/bias_subspace/gpt2_gender_direction.npy")
     if method == "INLP":
         A = [0.75, 0.8, 0.85, 0.9, 0.95, 1.0]  # percentage of original gpt2, can be a list
@@ -163,7 +163,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f):
                     while cur_len < max_len:
                         model_inputs = model.prepare_inputs_for_generation(input_ids, past=past, attention_mask=attention_mask,
                                                                            use_cache=use_cache)
-                        activations, layer_name = utils.register_hook(model, -1)
+                        activations, layer_name = utils.register_hook(model, model -1, model_name)
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
                         print("Prompt:", prompt_text)
 
@@ -337,5 +337,5 @@ if __name__ == '__main__':
 
     args = get_args()
 
-    generate_sentences(tokenizer, model, embedding, P, device, args.algorithm, f)
+    generate_sentences(tokenizer, model, embedding, P, device, args.algorithm, f, 'openai-gpt')
 

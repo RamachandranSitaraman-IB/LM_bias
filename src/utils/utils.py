@@ -1,4 +1,4 @@
-from transformers import GPT2Model, GPT2Tokenizer
+from transformers import GPT2Model, GPT2Tokenizer, OpenAIGPTTokenizer
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -16,8 +16,8 @@ def get_activation(name):
 
 
 
-def register_hook(model, layer):
-    model_name = "gpt2"
+def register_hook(model, layer, model_name):
+
     #model = GPT2Model.from_pretrained(model_name)
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
