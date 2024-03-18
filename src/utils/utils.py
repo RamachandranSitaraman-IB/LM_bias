@@ -61,7 +61,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text):
     token_ids = tokenizer.convert_tokens_to_ids(tokens)
     token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
-    print(activations.keys())
+
     if isinstance(activations[layer_name], torch.Tensor):
         # Detach and convert to numpy if it's a tensor
         activations[layer_name] = list(activations[layer_name].detach().cpu().numpy())
@@ -70,9 +70,10 @@ def heatmaptext(activations, layer_name, ratio, prompt_text):
         activations[layer_name] = activations[layer_name][0]
     # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
     activation_tensor = activations[layer_name].squeeze(0)  # Assuming batch_size=1 for simplicity
+    print(activations.keys(), len(token_texts), activations[layer_name].shape)
 
     # Prepare the figure and plot the heatmap
-    plt.figure(figsize=(10, len(token_texts) / 2))  # Adjust figure size as needed
+    plt.figure(figsize=(10, 10))  # Adjust figure size as needed
     ax = sns.heatmap(activation_tensor.cpu().detach().numpy(), cmap='viridis', yticklabels=token_texts)
 
     plt.title(f"Heatmap of activations in layer {layer_name}")
