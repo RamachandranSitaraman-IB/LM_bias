@@ -48,4 +48,5 @@ def heatmap(activations, layer_name):
     plt.title(f"Heatmap of activations in layer {layer_name}")
     plt.xlabel("Neurons in the layer")
     plt.ylabel("Tokens in the sequence")
+    plt.show()
     plt.savefig("../data/figs/activation_heatmap.png")
