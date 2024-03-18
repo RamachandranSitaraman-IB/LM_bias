@@ -57,7 +57,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Tokenize the prompt text to get the token texts for y-axis labels
-    token_texts = tokenizer.decode(input_ids.tolist()[0], clean_up_tokenization_spaces=True)
+    token_texts = [tokenizer.decode([token_id]) for token_id in input_ids.tolist()[0] ]
     #token_ids = tokenizer.convert_tokens_to_ids(tokens)
     #token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
@@ -70,7 +70,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
         activations[layer_name] = activations[layer_name][0]
     # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
     activation_tensor = activations[layer_name].squeeze(0)  # Assuming batch_size=1 for simplicity
-    print(activations.keys(), len(token_texts), len(input_ids), activations[layer_name].shape)
+    print(activations.keys(), len(token_texts), len(input_ids.tolist()[0]), activations[layer_name].shape)
 
     # Prepare the figure and plot the heatmap
     plt.figure(figsize=(10, 10))  # Adjust figure size as needed
