@@ -58,7 +58,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
 
     # Tokenize the prompt text to get the token texts for y-axis labels
     token_texts = tokenizer.decode(input_ids.tolist()[0], clean_up_tokenization_spaces=True)
-    token_ids = tokenizer.convert_tokens_to_ids(tokens)
+    #token_ids = tokenizer.convert_tokens_to_ids(tokens)
     #token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
 
