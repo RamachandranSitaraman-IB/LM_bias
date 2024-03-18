@@ -28,7 +28,7 @@ def register_hook(model, layer):
     return activations, layer_name
 
 
-def heatmap(activations, layer_name, ratio):
+def heatmap(activations, layer_name, ratio, prompt_text):
     # Convert the activations to a format suitable for Seaborn's heatmap function
     # For GPT-2, activations are stored in a tensor with shape (batch_size, sequence_length, hidden_size)
     # We'll average across the batch dimension if there's more than one example
@@ -49,4 +49,4 @@ def heatmap(activations, layer_name, ratio):
     plt.xlabel("Neurons in the layer")
     plt.ylabel("Tokens in the sequence")
     #plt.show()
-    plt.savefig("../../data/figs/activation_heatmap"+layer_name+"-"+str(ratio)+".png")
+    plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
