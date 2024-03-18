@@ -57,10 +57,12 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids):
     tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
     # Tokenize the prompt text to get the token texts for y-axis labels
-    token_texts = [tokenizer.decode([token_id], clean_up_tokenization_spaces=True) for token_id in input_ids.tolist()[0] ]
+    #token_texts = [tokenizer.decode([token_id], clean_up_tokenization_spaces=True) for token_id in input_ids.tolist()[0] ]
     #token_ids = tokenizer.convert_tokens_to_ids(tokens)
     #token_texts = [tokenizer.decode([token_id]) for token_id in token_ids]
 
+    input_ids_sequence = input_ids.tolist()[0]  # Assuming input_ids is a tensor and ii indexes a specific sequence
+    token_texts = tokenizer.convert_ids_to_tokens(input_ids_sequence)
 
     if isinstance(activations[layer_name], torch.Tensor):
         # Detach and convert to numpy if it's a tensor
