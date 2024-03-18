@@ -35,8 +35,8 @@ def heatmap(activations, layer_name):
     print(activations.keys())
     if isinstance(activations[layer_name], torch.Tensor):
         activations[layer_name] = activations[layer_name].detach().numpy()
-    if isinstance(activations[layer_name], list) and not isinstance(activations[layer_name], torch.Tensor):
-        activations[layer_name] = activations[layer_name].detach().numpy()
+    # if isinstance(activations[layer_name], list) and not isinstance(activations[layer_name], torch.Tensor):
+    #     activations[layer_name] = activations[layer_name].detach().numpy()
     activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim if batch_size=1
 
     plt.figure(figsize=(10, 10))
