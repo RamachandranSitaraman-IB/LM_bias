@@ -42,7 +42,7 @@ def heatmap(activations, layer_name, ratio, prompt_text):
 
     # Now, activations[layer_name] should be a numpy array and can be manipulated as such
     activation_tensor = activations[layer_name].squeeze(0)  # Remove batch dim
-
+    print(activation_tensor.shape)
     plt.figure(figsize=(10, 10))
     sns.heatmap(activation_tensor.cpu().detach().numpy(), cmap='viridis')
     plt.title(f"Heatmap of activations in layer {layer_name}")
