@@ -138,6 +138,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
         print("ratio:", A[a])
         ppl = 0.
         generated_sentence = []
+        activations_avgs = []
         # bias_sensitive_pos = []
         for template in prefix_template_res + prefix_template_occ:
             for context in basic_context:
@@ -290,7 +291,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
                     # print(input_ids.tolist()[0])
                     for ii in range(batch_size):
                         gen_sent = tokenizer.decode(input_ids.tolist()[ii], clean_up_tokenization_spaces=True)
-                        print(ii, gen_sent)
+                        print(ii, gen_sent, torch.mean(activations), " at ratio", A[a])
                         utils.heatmaptext(activations, layer_name, A[a], prompt_text, input_ids, model_name)
                         if '\n' in gen_sent:
                             gen_idx = gen_sent.index('\n')
