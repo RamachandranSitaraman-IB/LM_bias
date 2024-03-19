@@ -281,25 +281,25 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
                         # extend attention_mask for new generated input if only decoder
                         attention_mask = torch.cat([attention_mask, attention_mask.new_ones((attention_mask.shape[0], 1))],
                                                    dim=-1)
-                    logits = F.log_softmax(out, dim=-1)     # batch * seq_len * vocab
-                    # print(logits.size(), input_ids[:, -logits.shape[1]:].size())
-                    losses = F.nll_loss(logits.reshape(-1, logits.shape[-1]), input_ids[:, -logits.shape[1]:].reshape(-1).to(logits.device), reduction='none')
-                    nll_loss = mean_ds(losses)
-                    perplexity = 2 ** nll_loss.cpu().detach().numpy()
-                    ppl += perplexity
-                    print("avg perplextity: ", perplexity, "ratio", ratio)
+                        logits = F.log_softmax(out, dim=-1)     # batch * seq_len * vocab
+                        # print(logits.size(), input_ids[:, -logits.shape[1]:].size())
+                        losses = F.nll_loss(logits.reshape(-1, logits.shape[-1]), input_ids[:, -logits.shape[1]:].reshape(-1).to(logits.device), reduction='none')
+                        nll_loss = mean_ds(losses)
+                        perplexity = 2 ** nll_loss.cpu().detach().numpy()
+                        ppl += perplexity
+                        print("avg perplextity: ", perplexity, "ratio", ratio)
                     # print(input_ids.tolist()[0])
-                    for ii in range(batch_size):
-                        gen_sent = tokenizer.decode(input_ids.tolist()[ii], clean_up_tokenization_spaces=True)
-                        avg_activations = torch.mean(torch.tensor(activations[layer_name][0]))
-                        print(ii, gen_sent, avg_activations, " at ratio", A[a], " at layer ", layer_name)
-                        utils.heatmaptext(activations, layer_name, A[a], prompt_text, input_ids, model_name,
-                                          avg_activations)
-                        if '\n' in gen_sent:
-                            gen_idx = gen_sent.index('\n')
-                        else:
-                            gen_idx = len(gen_sent)
-                        generated_sentence.append(gen_sent[:gen_idx])
+                        for ii in range(batch_size):
+                            gen_sent = tokenizer.decode(input_ids.tolist()[ii], clean_up_tokenization_spaces=True)
+                            avg_activations = torch.mean(torch.tensor(activations[layer_name][0]))
+                            print(ii, gen_sent, avg_activations, " at ratio", A[a], " at layer ", layer_name)
+                            utils.heatmaptext(activations, layer_name, A[a], prompt_text, input_ids, model_name,
+                                              avg_activations)
+                            if '\n' in gen_sent:
+                                gen_idx = gen_sent.index('\n')
+                            else:
+                                gen_idx = len(gen_sent)
+                            generated_sentence.append(gen_sent[:gen_idx])
         total = (len(prefix_template_occ) + len(prefix_template_res)) * len(basic_context) * nums_iter
         print("avg: ", ppl / total)
         print("avg: ", ppl / total, file=f)
