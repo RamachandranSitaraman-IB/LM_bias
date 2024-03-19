@@ -91,7 +91,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_na
     plt.figure(figsize=(10, 10))  # Adjust figure size as needed
     ax = sns.heatmap(activation_tensor.cpu().detach().numpy(), cmap='viridis', yticklabels=token_texts)
 
-    plt.title(f"layer {layer_name}, ratio {ratio} " + " ".join(token_texts) + " avg actvn " + avg_activations.mean().item())
+    plt.title(f"layer {layer_name}, ratio {ratio} " + " ".join(token_texts) + " avg actvn " + str(avg_activations.mean().item()))
     plt.xlabel("Neurons in the layer")
     plt.ylabel("Tokens in the sequence")
 
