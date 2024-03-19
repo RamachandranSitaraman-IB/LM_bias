@@ -59,7 +59,7 @@ def heatmap(activations, layer_name, ratio, prompt_text, model_name):
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
     plt.close()
 
-def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_name):
+def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_name, avg_activations):
 
     if model_name == 'openai-gpt':
         tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
@@ -91,7 +91,7 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_na
     plt.figure(figsize=(10, 10))  # Adjust figure size as needed
     ax = sns.heatmap(activation_tensor.cpu().detach().numpy(), cmap='viridis', yticklabels=token_texts)
 
-    plt.title(f"layer {layer_name}, ratio {ratio} " + " ".join(token_texts))
+    plt.title(f"layer {layer_name}, ratio {ratio} " + " ".join(token_texts) + " avg actvn " + avg_activations)
     plt.xlabel("Neurons in the layer")
     plt.ylabel("Tokens in the sequence")
 
