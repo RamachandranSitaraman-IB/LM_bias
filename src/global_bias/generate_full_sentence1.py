@@ -166,7 +166,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
                                                                            use_cache=use_cache)
                         activations, layer_name = utils.register_hook(model, -1, model_name)
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
-                        print("Prompt:", prompt_text)
+                        #print("Prompt:", prompt_text)
 
 
 
