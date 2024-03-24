@@ -118,6 +118,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
     if method == "INLP":
         A = [0.75, 0.8, 0.85, 0.9, 0.95, 1.0]  # percentage of original gpt2, can be a list
         A = [0, 0.2, 0.4, 0.6, 0.8, 0.95, 1.0]
+        A = [1.0]
     else:
         A = [1.0]
 
