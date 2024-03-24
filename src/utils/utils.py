@@ -59,7 +59,8 @@ def heatmap(activations, layer_name, ratio, prompt_text, model_name):
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
     plt.close()
 
-def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, prompt_text, input_ids, model_name, avg_activations):
+def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, prompt_text, input_ids, model_name,
+                avg_activations, cur_len):
 
     if model_name == 'openai-gpt':
         tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
@@ -103,6 +104,6 @@ def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, promp
     plt.yticks(rotation=45, ha='right')  # ha is the horizontal alignment
 
     # Save or show the plot
-    plt.savefig("../../data/figs/" + prompt_text + " heatmaps " + layer_name + "-" + str(ratio) + ".png")
+    plt.savefig("../../data/figs/" + " ".join(token_texts) + "_heatmaps_" + layer_name + "_" + str(ratio) + ".png")
     # plt.show()
     plt.close()
