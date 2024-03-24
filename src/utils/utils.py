@@ -59,7 +59,7 @@ def heatmap(activations, layer_name, ratio, prompt_text, model_name):
     plt.savefig("../../data/figs/"+ prompt_text+"-activation_heatmap"+layer_name+"-"+str(ratio)+".png")
     plt.close()
 
-def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_name, avg_activations):
+def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, prompt_text, input_ids, model_name, avg_activations):
 
     if model_name == 'openai-gpt':
         tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
@@ -80,14 +80,15 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_na
     if isinstance(activations[layer_name], torch.Tensor):
         # Detach and convert to numpy if it's a tensor
         activations[layer_name] = list(activations[layer_name].detach().cpu().numpy())
-        activations[0] = list(activations[0].detach().cpu().numpy())
+        activations0[layer_name0] = list(activations0[layer_name0].detach().cpu().numpy())
         diff = activations[layer_name] - activations[0]
     elif isinstance(activations[layer_name], list):
         # Directly convert to numpy array if it's a list
         activations[layer_name] = activations[layer_name][0]
-        activations[0] = activations[0][0]
+        activations0[layer_name0] = activations0[layer_name0][0]
     # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
-    activation_tensor = activations[layer_name].squeeze(0) - activations[0].squeeze(0)  # Assuming batch_size=1 for simplicity
+    print("Shapes", activations[layer_name].shape, activations0[layer_name0].shape)
+    activation_tensor = activations[layer_name].squeeze(0) - activations0[layer_name0].squeeze(0)  # Assuming batch_size=1 for simplicity
     print(activations.keys(), len(token_texts), len(input_ids.tolist()[0]), activations[layer_name].shape)
 
     # Prepare the figure and plot the heatmap

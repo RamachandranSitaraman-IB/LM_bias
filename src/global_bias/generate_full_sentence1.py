@@ -165,6 +165,7 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
                         model_inputs = model.prepare_inputs_for_generation(input_ids, past=past, attention_mask=attention_mask,
                                                                            use_cache=use_cache)
                         activations, layer_name = utils.register_hook(model, -1, model_name)
+                        activations0, layer_name0 = utils.register_hook(model, 0, model_name)
                         outputs = model(**model_inputs)     # [0]: (batch_size, seq_len, vocab_size)
                         #print("Prompt:", prompt_text)
 
@@ -293,7 +294,8 @@ def generate_sentences(tokenizer, model, embedding, P, device, method, f, model_
                         gen_sent = tokenizer.decode(input_ids.tolist()[ii], clean_up_tokenization_spaces=True)
                         avg_activations = torch.mean(activations[layer_name][0], -1)
                         print(ii, gen_sent, avg_activations, " at ratio", A[a], " at layer ", layer_name)
-                        utils.heatmaptext(activations, layer_name, A[a], prompt_text, input_ids, model_name,
+                        utils.heatmaptext(activations, layer_name, activations0,
+                                          layer_name0, A[a], prompt_text, input_ids, model_name,
                                           avg_activations)
                         if '\n' in gen_sent:
                             gen_idx = gen_sent.index('\n')
