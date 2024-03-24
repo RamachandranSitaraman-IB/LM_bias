@@ -105,6 +105,6 @@ def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, promp
     plt.yticks(rotation=45, ha='right')  # ha is the horizontal alignment
 
     # Save or show the plot
-    plt.savefig("../../data/figs/" + " ".join(token_texts) + "_heatmaps_" + layer_name + "_" + str(ratio) + ".png")
+    plt.savefig("../../data/figs/" + gen_text + "_heatmaps_" + layer_name + "_" + str(ratio) + ".png")
     # plt.show()
     plt.close()
