@@ -80,11 +80,14 @@ def heatmaptext(activations, layer_name, ratio, prompt_text, input_ids, model_na
     if isinstance(activations[layer_name], torch.Tensor):
         # Detach and convert to numpy if it's a tensor
         activations[layer_name] = list(activations[layer_name].detach().cpu().numpy())
+        activations[0] = list(activations[0].detach().cpu().numpy())
+        diff = activations[layer_name] - activations[0]
     elif isinstance(activations[layer_name], list):
         # Directly convert to numpy array if it's a list
         activations[layer_name] = activations[layer_name][0]
+        activations[0] = activations[0][0]
     # Assuming activations[layer_name] is your tensor with shape [sequence_length, hidden_size]
-    activation_tensor = activations[layer_name].squeeze(0)  # Assuming batch_size=1 for simplicity
+    activation_tensor = activations[layer_name].squeeze(0) - activations[0].squeeze(0)  # Assuming batch_size=1 for simplicity
     print(activations.keys(), len(token_texts), len(input_ids.tolist()[0]), activations[layer_name].shape)
 
     # Prepare the figure and plot the heatmap
