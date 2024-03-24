@@ -77,6 +77,7 @@ def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, promp
 
     input_ids_sequence = input_ids.tolist()[0]  # Assuming input_ids is a tensor and ii indexes a specific sequence
     token_texts = tokenizer.convert_ids_to_tokens(input_ids_sequence)
+    gen_text = tokenizer.decode(input_ids_sequence)
 
     if isinstance(activations[layer_name], torch.Tensor):
         # Detach and convert to numpy if it's a tensor
