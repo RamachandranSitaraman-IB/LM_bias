@@ -60,7 +60,7 @@ def heatmap(activations, layer_name, ratio, prompt_text, model_name):
     plt.close()
 
 def heatmaptext(activations, layer_name, activations0, layer_name0, ratio, prompt_text, input_ids, model_name,
-                avg_activations, cur_len):
+                avg_activations, cur_len=None):
 
     if model_name == 'openai-gpt':
         tokenizer = OpenAIGPTTokenizer.from_pretrained(model_name)
