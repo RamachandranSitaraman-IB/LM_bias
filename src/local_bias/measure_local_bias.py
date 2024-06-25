@@ -79,8 +79,8 @@ def topk_overlap(tokenizer, model, embedding, P, A, device, f, k=50):
     #male_sent = np.loadtxt("../../data/corpus_male_context.txt", dtype=str, delimiter="\n")
     #female_sent = np.loadtxt("../../data/corpus_female_context.txt", dtype=str, delimiter="\n")
 
-    male_sent = load_sentences("../../data/corpus_male_context.txt", dtype=str, delimiter="\n")
-    female_sent = load_sentences("../../data/corpus_female_context.txt", dtype=str, delimiter="\n")
+    male_sent = load_sentences("../../data/corpus_male_context.txt")
+    female_sent = load_sentences("../../data/corpus_female_context.txt")
     # male_sent = np.loadtxt("../../new_data/corpus_male_context.txt", dtype=str, delimiter="\n")
     # female_sent = np.loadtxt("../../new_data/corpus_female_context.txt", dtype=str, delimiter="\n")
 
