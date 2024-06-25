@@ -25,7 +25,10 @@ from transformers import (
 
 from utils import top_k_top_p_filtering, local_kl, weat_true_label, local_Hellinger, topk_kl_overlap, local_Hellinger_subspace, topk_kl_overlap_subspace, weat_true_label_subspace
 
-
+def load_sentences(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        sentences = file.read().splitlines()
+    return np.array(sentences)
 def topk_overlap(tokenizer, model, embedding, P, A, device, f, k=50):
     ### Local Metric1: Top k overlap - reflect language model performance ###
     print("-"*100)
@@ -69,12 +72,16 @@ def topk_overlap(tokenizer, model, embedding, P, A, device, f, k=50):
     print("direction:", overlap_avg_dir / total, file=f)
     print(file=f)
 
+
     #### our own dataset
     # read sentences
     # new_context = np.loadtxt("../../data/gender_occupation_bias_context.txt")
 
-    male_sent = np.loadtxt("../../data/corpus_male_context.txt", dtype=str, delimiter="\n")
-    female_sent = np.loadtxt("../../data/corpus_female_context.txt", dtype=str, delimiter="\n")
+    # male_sent = np.loadtxt("../../data/corpus_male_context.txt", dtype=str, delimiter="\n")
+    # female_sent = np.loadtxt("../../data/corpus_female_context.txt", dtype=str, delimiter="\n")
+    male_sent = load_sentences("../../data/corpus_male_context.txt")
+    female_sent = load_sentences("../../data/corpus_female_context.txt")
+
     # male_sent = np.loadtxt("../../new_data/corpus_male_context.txt", dtype=str, delimiter="\n")
     # female_sent = np.loadtxt("../../new_data/corpus_female_context.txt", dtype=str, delimiter="\n")
     print(male_sent.shape)
